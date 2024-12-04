@@ -33,7 +33,7 @@ onAuthStateChanged(auth, async (user) => {
         //showing allposts from current user start
         async function currentUserAllPosts(id) {
             try {
-                const docRef = collection(db, "posts");
+                const docRef = collection(db, "post");
                 const q = query(docRef, where("id", "==", id));
                 const querySnapshot = await getDocs(q);
 
@@ -48,6 +48,7 @@ onAuthStateChanged(auth, async (user) => {
             } catch (error) {
                 console.error("Error fetching posts:", error.message);
             }
+           
         }
 
 
@@ -64,9 +65,16 @@ onAuthStateChanged(auth, async (user) => {
 
         } else {
             const previousPosts = document.getElementById('previousPosts');
+            let heading = document.getElementById('heading')
             previousPosts.innerHTML = ""; // Clear previous content
             allPosts.forEach((post) => {
                 const createdAt = post.createdAt.toDate().toLocaleString();
+                heading.innerHTML = `
+                <div class="container my-4">
+                        <div class="card pt-4 border w-100" id="postCard">
+                        <p>General posts</p>
+                        </div>
+                    </div>`
                 previousPosts.innerHTML += `
                     <div class="container my-4">
                         <div class="card pt-4 border w-100" id="postCard">
