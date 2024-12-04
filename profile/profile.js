@@ -331,8 +331,6 @@ select.addEventListener('change', () => {
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         const uid = user.uid;
-        // profileEmail.innerHTML = user.email;
-        // profileName.innerHTML = user.displayName;
         console.log(user);
         travel.addEventListener('click', async () => {
             try {
@@ -360,6 +358,7 @@ onAuthStateChanged(auth, async (user) => {
                         showCurrentPost.innerHTML += `
                       <div class="container my-4">
                         <div class="card pt-4 border w-100" id="postCard">
+                          <h1>Travelling posts</h1>
                           <span id="profile-name" class="name mt-3">${name || "Anonymous"}</span>
                           <span class="idd" id="user-email">${data.email}</span>
                           <input type="text" id="title" value='${title}' readonly>
@@ -378,83 +377,56 @@ onAuthStateChanged(auth, async (user) => {
 })
 
 
-//getting data
-art.addEventListener('click', async () => {
-    try {
-        const querySnapshot = await getDocs(collection(db, "Art"));
 
-        // Check if there are no posts
-        if (querySnapshot.empty) {
-            alert("No posts available.");
-            return;
-        }
 
-        // Get the container to display posts
-        let showCurrentPost = document.getElementById('allUsersPost');
-        showCurrentPost.innerHTML = ""; // Clear previous posts
+// getting data
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const uid = user.uid;
+        console.log(user);
+        general.addEventListener('click', async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "post"));
 
-        // Loop through all documents in the query snapshot
-        querySnapshot.forEach((doc) => {
-            const data = doc.data(); // Get the document data
-            console.log(doc.id, " => ", data);
+                // Check if there are no posts
+                if (querySnapshot.empty) {
+                    alert("No posts available.");
+                    return;
+                } else {
 
-            // Append each post to the container
-            showCurrentPost.innerHTML += `
-            <div class="container my-4">
-              <div class="card pt-4 border w-100" id="postCard">
-                <p class="px-2" id="postHeading">Current Post</p>
-                <span id="profile-name" class="name mt-3">${data.displayName || "Anonymous"}</span>
-                <span class="idd" id="user-email">${data.email}</span>
-                <input type="text" id="title" value='${data.Title}' readonly>
-                <textarea name="textarea" id="textarea" readonly>${data.description}</textarea>
-              </div>
-            </div>`;
+                    // Get the container to display posts
+                    let showCurrentPost = document.getElementById('tra');
+                    showCurrentPost.innerHTML = ""; // Clear previous posts
+
+                    // Loop through all documents in the query snapshot
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data(); // Get the document data
+                        console.log(doc.id, " => ", data);
+                        let title = data.Title
+                        let description = data.description
+                        let name = data.displayName
+
+                        // Append each post to the container
+                        showCurrentPost.innerHTML += `
+                      <div class="container my-4">
+                        <div class="card pt-4 border w-100" id="postCard">
+                          <h1>General post</h1>
+                          <span id="profile-name" class="name mt-3">${name || "Anonymous"}</span>
+                          <span class="idd" id="user-email">${data.email}</span>
+                          <input type="text" id="title" value='${title}' readonly>
+                          <textarea name="textarea" id="textarea" readonly>${description}</textarea>
+                        </div>
+                      </div>`;
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching posts: ", error.message);
+                alert("Something went wrong while fetching posts.");
+            }
         });
-    } catch (error) {
-        console.error("Error fetching posts: ", error.message);
-        console.log("ERROR:", error.code);
 
-        alert("Something went wrong while fetching posts.");
     }
 })
-//getting data
-general.addEventListener('click', async () => {
-    try {
-        const querySnapshot = await getDocs(collection(db, "post"));
-
-        // Check if there are no posts
-        if (querySnapshot.empty) {
-            alert("No posts available.");
-            return;
-        }
-
-        // Get the container to display posts
-        let showCurrentPost = document.getElementById('allUsersPost');
-        showCurrentPost.innerHTML = ""; // Clear previous posts
-
-        // Loop through all documents in the query snapshot
-        querySnapshot.forEach((doc) => {
-            const data = doc.data(); // Get the document data
-            console.log(doc.id, " => ", data);
-
-            // Append each post to the container
-            showCurrentPost.innerHTML += `
-                <div class="container my-4">
-                  <div class="card pt-4 border w-100" id="postCard">
-                    <p class="px-2" id="postHeading">Current Post</p>
-                    <span id="profile-name" class="name mt-3">${data.displayName || "Anonymous"}</span>
-                    <span class="idd" id="user-email">${data.email}</span>
-                    <input type="text" id="title" value='${data.Title}' readonly>
-                    <textarea name="textarea" id="textarea" readonly>${data.description}</textarea>
-                  </div>
-                </div>`;
-        });
-    } catch (error) {
-        console.error("Error fetching posts: ", error.message);
-        alert("Something went wrong while fetching posts.");
-    }
-})
-
 
 
 let cloudName = "dj6sjdar5"
@@ -557,58 +529,58 @@ logOut.addEventListener('click', () => {
 
 
 
-async function users() {
-    try {
-        // Getting all users once
-        const querySnapshot = await getDocs(collection(db, "users"));
-        const users = querySnapshot.docs.map(doc => ({
-            ...doc.data()
-        }));
+// async function users() {
+//     try {
+//         // Getting all users once
+//         const querySnapshot = await getDocs(collection(db, "users"));
+//         const users = querySnapshot.docs.map(doc => ({
+//             ...doc.data()
+//         }));
 
-        // Getting all posts once
-        const postSnapshot = await getDocs(collection(db, "posts"));
-        const posts = postSnapshot.docs.map(post => ({
-            ...post.data()
-        }));
+//         // Getting all posts once
+//         const postSnapshot = await getDocs(collection(db, "posts"));
+//         const posts = postSnapshot.docs.map(post => ({
+//             ...post.data()
+//         }));
 
-        let postsHTML = "";
+//         let postsHTML = "";
 
-        // Loop through users and getting email from it
-        users.forEach((user) => {
-            let email = user.email;
-            let name = user.name;
+//         // Loop through users and getting email from it
+//         users.forEach((user) => {
+//             let email = user.email;
+//             let name = user.name;
 
-            // Now filtering through emails
-            const userPost = posts.filter(post => post.email === email);
-            userPost.forEach(post => {
+//             // Now filtering through emails
+//             const userPost = posts.filter(post => post.email === email);
+//             userPost.forEach(post => {
 
-                let title = post.Title;
-                let description = post.description;
-                let time = post.createdAt.toDate().toLocaleString();
+//                 let title = post.Title;
+//                 let description = post.description;
+//                 let time = post.createdAt.toDate().toLocaleString();
 
-                // Proper template literal usage
-                postsHTML += `
-                <div class="container my-4">
-                    <div class="card pt-4 border w-100" id="postCard">
-                        <h2>${name}</h2>
-                        <p>${time}</p>
-                        <input type="text" id="title" value="${title}" readonly>
-                        <textarea name="textarea" id="textarea" readonly>${description}</textarea>
-                    </div>
-                </div>`;
-            });
-        });
+//                 // Proper template literal usage
+//                 postsHTML += `
+//                 <div class="container my-4">
+//                     <div class="card pt-4 border w-100" id="postCard">
+//                         <h2>${name}</h2>
+//                         <p>${time}</p>
+//                         <input type="text" id="title" value="${title}" readonly>
+//                         <textarea name="textarea" id="textarea" readonly>${description}</textarea>
+//                     </div>
+//                 </div>`;
+//             });
+//         });
 
-        // Updating the DOM
-        const allUsersPosts = document.getElementById('allUsersPosts');
-        allUsersPosts.innerHTML = postsHTML;
+//         // Updating the DOM
+//         const allUsersPosts = document.getElementById('allUsersPosts');
+//         allUsersPosts.innerHTML = postsHTML;
 
-    } catch (error) {
-        console.log("Error:", error.message);
-    }
-}
+//     } catch (error) {
+//         console.log("Error:", error.message);
+//     }
+// }
 
-users();
+// users();
 
 
 
