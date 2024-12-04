@@ -64,6 +64,9 @@ googleBtn.addEventListener('click', () => {
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
+            setTimeout(() => {
+                window.location.href = "../profile/profile.html"
+            }, 2000)
             // IdP data available using getAdditionalUserInfo(result)
             // ...
         }).catch((error) => {

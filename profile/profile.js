@@ -323,70 +323,83 @@ select.addEventListener('change', () => {
 
 })
 
-
-
-
 //category c finish
 
-travel.addEventListener('click', async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "Traveling"));
-  
-      // Check if there are no posts
-      if (querySnapshot.empty) {
-        alert("No posts available.");
-        return;
-      }
-  
-      // Get the container to display posts
-      let showCurrentPost = document.getElementById('allUsersPost');
-      showCurrentPost.innerHTML = ""; // Clear previous posts
-  
-      // Loop through all documents in the query snapshot
-      querySnapshot.forEach((doc) => {
-        const data = doc.data(); // Get the document data
-        console.log(doc.id, " => ", data);
-  
-        // Append each post to the container
-        showCurrentPost.innerHTML += `
-          <div class="container my-4">
-            <div class="card pt-4 border w-100" id="postCard">
-              <p class="px-2" id="postHeading">Current Post</p>
-              <span id="profile-name" class="name mt-3">${data.displayName || "Anonymous"}</span>
-              <span class="idd" id="user-email">${data.email}</span>
-              <input type="text" id="title" value='${data.Title}' readonly>
-              <textarea name="textarea" id="textarea" readonly>${data.description}</textarea>
-            </div>
-          </div>`;
-      });
-    } catch (error) {
-      console.error("Error fetching posts: ", error.message);
-      alert("Something went wrong while fetching posts.");
-    }
-  });
 
-  //getting data
-  art.addEventListener('click',async()=>{
+
+// getting data
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const uid = user.uid;
+        // profileEmail.innerHTML = user.email;
+        // profileName.innerHTML = user.displayName;
+        console.log(user);
+        travel.addEventListener('click', async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "Traveling"));
+
+                // Check if there are no posts
+                if (querySnapshot.empty) {
+                    alert("No posts available.");
+                    return;
+                } else {
+
+                    // Get the container to display posts
+                    let showCurrentPost = document.getElementById('tra');
+                    showCurrentPost.innerHTML = ""; // Clear previous posts
+
+                    // Loop through all documents in the query snapshot
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data(); // Get the document data
+                        console.log(doc.id, " => ", data);
+                        let title = data.Title
+                        let description = data.description
+                        let name = data.displayName
+
+                        // Append each post to the container
+                        showCurrentPost.innerHTML += `
+                      <div class="container my-4">
+                        <div class="card pt-4 border w-100" id="postCard">
+                          <span id="profile-name" class="name mt-3">${name || "Anonymous"}</span>
+                          <span class="idd" id="user-email">${data.email}</span>
+                          <input type="text" id="title" value='${title}' readonly>
+                          <textarea name="textarea" id="textarea" readonly>${description}</textarea>
+                        </div>
+                      </div>`;
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching posts: ", error.message);
+                alert("Something went wrong while fetching posts.");
+            }
+        });
+
+    }
+})
+
+
+//getting data
+art.addEventListener('click', async () => {
     try {
         const querySnapshot = await getDocs(collection(db, "Art"));
-    
+
         // Check if there are no posts
         if (querySnapshot.empty) {
-          alert("No posts available.");
-          return;
+            alert("No posts available.");
+            return;
         }
-    
+
         // Get the container to display posts
         let showCurrentPost = document.getElementById('allUsersPost');
         showCurrentPost.innerHTML = ""; // Clear previous posts
-    
+
         // Loop through all documents in the query snapshot
         querySnapshot.forEach((doc) => {
-          const data = doc.data(); // Get the document data
-          console.log(doc.id, " => ", data);
-    
-          // Append each post to the container
-          showCurrentPost.innerHTML += `
+            const data = doc.data(); // Get the document data
+            console.log(doc.id, " => ", data);
+
+            // Append each post to the container
+            showCurrentPost.innerHTML += `
             <div class="container my-4">
               <div class="card pt-4 border w-100" id="postCard">
                 <p class="px-2" id="postHeading">Current Post</p>
@@ -397,35 +410,35 @@ travel.addEventListener('click', async () => {
               </div>
             </div>`;
         });
-      } catch (error) {
+    } catch (error) {
         console.error("Error fetching posts: ", error.message);
-        console.log("ERROR:",error.code);
-        
+        console.log("ERROR:", error.code);
+
         alert("Something went wrong while fetching posts.");
-      }
-  })
-    //getting data
-    general.addEventListener('click',async()=>{
-        try {
-            const querySnapshot = await getDocs(collection(db, "post"));
-        
-            // Check if there are no posts
-            if (querySnapshot.empty) {
-              alert("No posts available.");
-              return;
-            }
-        
-            // Get the container to display posts
-            let showCurrentPost = document.getElementById('allUsersPost');
-            showCurrentPost.innerHTML = ""; // Clear previous posts
-        
-            // Loop through all documents in the query snapshot
-            querySnapshot.forEach((doc) => {
-              const data = doc.data(); // Get the document data
-              console.log(doc.id, " => ", data);
-        
-              // Append each post to the container
-              showCurrentPost.innerHTML += `
+    }
+})
+//getting data
+general.addEventListener('click', async () => {
+    try {
+        const querySnapshot = await getDocs(collection(db, "post"));
+
+        // Check if there are no posts
+        if (querySnapshot.empty) {
+            alert("No posts available.");
+            return;
+        }
+
+        // Get the container to display posts
+        let showCurrentPost = document.getElementById('allUsersPost');
+        showCurrentPost.innerHTML = ""; // Clear previous posts
+
+        // Loop through all documents in the query snapshot
+        querySnapshot.forEach((doc) => {
+            const data = doc.data(); // Get the document data
+            console.log(doc.id, " => ", data);
+
+            // Append each post to the container
+            showCurrentPost.innerHTML += `
                 <div class="container my-4">
                   <div class="card pt-4 border w-100" id="postCard">
                     <p class="px-2" id="postHeading">Current Post</p>
@@ -435,13 +448,13 @@ travel.addEventListener('click', async () => {
                     <textarea name="textarea" id="textarea" readonly>${data.description}</textarea>
                   </div>
                 </div>`;
-            });
-          } catch (error) {
-            console.error("Error fetching posts: ", error.message);
-            alert("Something went wrong while fetching posts.");
-          }
-      })
-  
+        });
+    } catch (error) {
+        console.error("Error fetching posts: ", error.message);
+        alert("Something went wrong while fetching posts.");
+    }
+})
+
 
 
 let cloudName = "dj6sjdar5"
@@ -498,10 +511,10 @@ pictureBtn.addEventListener('click', () => {
 
 
 
-        const previous_Posts = document.getElementById('previous-Posts')
-        previous_Posts.addEventListener('click', () => {
-            window.location.href = './previous.html'
-        })
+const previous_Posts = document.getElementById('previous-Posts')
+previous_Posts.addEventListener('click', () => {
+    window.location.href = './previous.html'
+})
 
 
 
@@ -509,30 +522,30 @@ pictureBtn.addEventListener('click', () => {
 
 
 
-        logOut.addEventListener('click', () => {
+logOut.addEventListener('click', () => {
 
-            signOut(auth).then(() => {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "logged out successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                window.location.href = "../signup-form/signup.html"
-            }).catch((error) => {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "error",
-                    title: error,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            });
-        })
+    signOut(auth).then(() => {
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "logged out successfully",
+            showConfirmButton: false,
+            timer: 1500
+        });
+        window.location.href = "../signup-form/signup.html"
+    }).catch((error) => {
+        Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: error,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    });
+})
 
 
-    
+
 
 
 
