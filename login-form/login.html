@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- bootstrap links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <!-- bootstrap links finish-->
+    <link rel="stylesheet" href="/signup-form/signup.css">
+      <!--sweet alert-->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div class="d-flex flex-column justify-content-center" id="containerDiv">
+        <div id="container">
+
+            <div class="d-flex justify-content-center">
+                <button title="button" class="btn btn-secondary"> <img src="/signup-form/profile-image.png"
+                        id="profile-img" height="100" width="100" /></button>
+            </div>
+            <h2 class="text-center mt-4">LogIn-Form</h2>
+            <!-- Google button start-->
+            <div class="login_option">
+                <div class="option">
+                    <a href="#" id="googleBtn">
+                        <img src="google.png" alt="Google" />
+                        <span>Google</span>
+                    </a>
+                </div>
+            </div>
+            <!-- google btn finish-->
+             <!-- email passward start -->
+            <div class="d-flex flex-column">
+
+                <label for="email">
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                </label>
+                <label for="password">
+                    <input type="password" name="password" id="passward" placeholder="Password" required>
+                </label>
+            </div>
+            <!-- email passward finish -->
+            <div class="d-flex justify-content-center">
+                <button id="LogInBtn">Log In </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="login.js"></script>
+</body>
+
+</html>

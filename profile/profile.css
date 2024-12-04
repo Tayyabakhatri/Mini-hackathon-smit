@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    height: 100vh;
+}
+
+.card {
+    width: 100%;
+    background-color: #efefef;
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.image img {
+    transition: all 0.5s;
+    display: flex;
+    justify-content: start;
+}
+
+.card:hover .image img {
+    transform: scale(1.5)
+}
+
+.btn {
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+
+}
+#btn{
+    border: none;
+    background-color: white;
+    padding: 4px 15px;
+    border-radius: 8px;
+}
+#update_Name{
+    height: 40px;
+    width: 80px;
+    border: none;
+    background-color: #000;
+    color: #aeaeae;
+    font-size: 15px
+}
+#logout{
+    height: 40px;
+    width: 80px;
+    border: none;
+    background-color: #000;
+    color: #aeaeae;
+    font-size: 15px
+    
+}
+#title{
+    border: none;
+    outline: none;
+    padding:10px 5px;
+    margin: 8px 5px;
+ font-size: 1rem;
+ font-weight: bold;
+}
+#postHeading{
+    font-size: 22px;
+    font-weight: bold
+}
+#textarea{
+    border: none;
+    outline: none;
+    padding:10px 5px;
+    margin: 8px 5px;
+}
+.name {
+    font-size: 22px;
+    font-weight: bold
+}
+#postCard{
+ 
+    padding: 40px;
+
+}
+
+.btn1 {
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: #000;
+    color: #aeaeae;
+    font-size: 15px
+}
+.dd{
+    border-radius: 10px;
+    padding: 5px 8px;
+}

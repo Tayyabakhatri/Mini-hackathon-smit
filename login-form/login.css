@@ -1,0 +1,40 @@
+/* Google & Apple button styling */
+
+ .login_option {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .login_option .option {
+    width: calc(100% / 2 - 12px);
+    width: 100%;
+  }
+  
+  .login_option .option a {
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    background: #F8F8FB;
+    border: 1px solid #DADAF2;
+    border-radius: 5px;
+    margin: 34px 0 24px 0;
+    text-decoration: none;
+    color: #171645;
+    font-weight: 500;
+    transition: 0.2s ease;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .login_option .option a:hover {
+    background: #ededf5;
+    border-color: #626cd6;
+  }
+  
+  .login_option .option a img {
+    max-width: 25px;
+  }
