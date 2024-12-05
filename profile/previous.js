@@ -60,7 +60,7 @@ onAuthStateChanged(auth, async (user) => {
         if (generalPosts.length == 0) {
             const previousPosts = document.getElementById('previousPosts');
             previousPosts.innerHTML = // Clear previous content
-                ` <h1  class="card text-center border w-100">No post to show</h1>`
+                ` <h1  class="card text-center border w-100">No post to show for general</h1>`
             console.log("no post");
 
         } else {
@@ -111,7 +111,7 @@ onAuthStateChanged(auth, async (user) => {
         if (travelingPost.length == 0) {
             const travelingPostShow = document.getElementById('travelingPostShow');
             travelingPostShow.innerHTML = // Clear previous content
-                ` <h1  class="card text-center border w-100">No post to show</h1>`
+                ` <h1  class="card text-center border w-100">No post to show for traveling</h1>`
             console.log("no post");
 
         } else {
@@ -162,7 +162,7 @@ onAuthStateChanged(auth, async (user) => {
         if (artPost.length == 0) {
             const artgPostShow = document.getElementById('artgPostShow');
             artgPostShow.innerHTML = // Clear previous content
-                ` <h1  class="card text-center border w-100">No post to show</h1>`
+                ` <h1  class="card text-center border w-100">No post to show for art</h1>`
             console.log("no post");
 
         } else {

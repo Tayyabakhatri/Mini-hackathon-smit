@@ -32,6 +32,15 @@ let travel = document.getElementById('travel');
 let art = document.getElementById('art')
 let general = document.getElementById('general')
 let select = document.getElementById('drop-down')
+
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const uid = user.uid;
+        profileEmail.innerHTML = user.email;
+        profileName.innerHTML = user.displayName;
+    }
+})
+
 select.addEventListener('change', () => {
 
     // Get the selected value
