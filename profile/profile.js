@@ -41,6 +41,8 @@ onAuthStateChanged(auth, async (user) => {
     }
 })
 
+
+
 select.addEventListener('change', () => {
 
     // Get the selected value
@@ -341,6 +343,7 @@ onAuthStateChanged(auth, async (user) => {
     if (user) {
         const uid = user.uid;
         console.log(user);
+        
         travel.addEventListener('click', async () => {
             try {
                 const querySnapshot = await getDocs(collection(db, "Traveling"));
@@ -353,6 +356,8 @@ onAuthStateChanged(auth, async (user) => {
 
                     // Get the container to display posts
                     let showCurrentPost = document.getElementById('tra');
+                    let head = document.getElementById('head')
+                    head.innerHTML=`<h1>Travelling posts</h1>`
                     showCurrentPost.innerHTML = ""; // Clear previous posts
 
                     // Loop through all documents in the query snapshot
@@ -367,7 +372,7 @@ onAuthStateChanged(auth, async (user) => {
                         showCurrentPost.innerHTML += `
                       <div class="container my-4">
                         <div class="card pt-4 border w-100" id="postCard">
-                          <h1>Travelling posts</h1>
+                          
                           <span id="profile-name" class="name mt-3">${name || "Anonymous"}</span>
                           <span class="idd" id="user-email">${data.email}</span>
                           <input type="text" id="title" value='${title}' readonly>
@@ -386,6 +391,60 @@ onAuthStateChanged(auth, async (user) => {
 })
 
 
+
+// getting data
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const uid = user.uid;
+        console.log(user);
+        let name= user.displayName
+        console.log(name);
+        
+        art.addEventListener('click', async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, "Art"));
+
+                // Check if there are no posts
+                if (querySnapshot.empty) {
+                    alert("No posts available.");
+                    return;
+                } else {
+
+                    // Get the container to display posts
+                    let showCurrentPost = document.getElementById('tra');
+                    let head = document.getElementById('head')
+                    head.innerHTML=`<h1>Art posts</h1>`
+                    showCurrentPost.innerHTML = ""; // Clear previous posts
+
+                    // Loop through all documents in the query snapshot
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data(); // Get the document data
+                        console.log(doc.id, " => ", data);
+                        let title = data.Title
+                        let description = data.description
+                        let name = user.displayName
+
+                        // Append each post to the container
+                        showCurrentPost.innerHTML += `
+                      <div class="container my-4">
+                        <div class="card pt-4 border w-100" id="postCard">
+                          
+                          <span id="profile-name" class="name mt-3">${name || "Anonymous"}</span>
+                          <span class="idd" id="user-email">${data.email}</span>
+                          <input type="text" id="title" value='${title}' readonly>
+                          <textarea name="textarea" id="textarea" readonly>${description}</textarea>
+                        </div>
+                      </div>`;
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching posts: ", error.message);
+                alert("Something went wrong while fetching posts.");
+            }
+        });
+
+    }
+})
 
 
 // getting data
